@@ -8,7 +8,7 @@ dotenv.config();
 const usuarios = [{
     user: "tiago",
     email: "tiago200205@gmail.com",
-    password: "$2a$05$RUJWMbkBwqB8CJR.4mWbHu3db3gRNOP/E3ybYBhTQV8JL58qv7KyS"
+    password: "$2a$05$RUJWMbkBwqB8CJR.4mWbHu3db3gRNOP/E3ybYBhTQV8JL58qv7KyS" //"tiago"
 }]
 
 
@@ -29,12 +29,12 @@ async function login(req,res){
         return res.status(400).send({status:"Error",message:"Error durante el login"}) /*Manejo de duplicados*/
        }
        const token = jsonwebtoken.sign(
-        {user:usuarioAResvisar.user},
+        {user:usuarioduplicado.user},
         process.env.JWT_SECRET,
-        {expiresIn:process.env.JWT_EXPIRATION});
+        {expiresIn:process.env.JWT_EXP});
     
         const cookieOption = {
-          expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+          expires: new Date(Date.now() + process.env.JWT_COOKIE_EXP * 24 * 60 * 60 * 1000),
           path: "/"
         }
         res.cookie("jwt",token,cookieOption);
